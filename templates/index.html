@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}
+Index
+{% endblock %}
+{% block body %}
+    <h2>Karaktärer</h2>
+    <ul>
+        {% for i in range(movies| length) %}
+        <li>
+            <a href="/info?movie={{ i }}">{{ movies[i].name }}</a>
+            <a href="/remove/{{ i }}">[x]</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <br>
+    <br>
+    <form action="/random">
+        <input type="submit" value="Slumpa Karaktär">
+    </form>
+    <br>
+    <br>
+    <form action="/add" method="POST">
+        <label for="name">Karaktär:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="rating">Film:</label><br>
+        <input type="text" id="rating" name="rating"><br><br>
+        <input type="submit" value="Lägg till karaktär">
+    </form>
+    
+{% endblock %}
+{% block scripts %}
+<script>
+// Set the number of seconds for the timer
+let seconds = 120;
+// Declare a variable for the countdown
+    let countdown;
+
+    // Get the timer element
+    let timer = document.getElementById("timer");
+
+    // Function to start the timer
+    function startTimer() {
+        countdown = setInterval(function() {
+            // Update the timer element with the remaining seconds
+            timer.innerHTML = seconds;
+
+            // Decrement the seconds
+            seconds--;
+
+            // If the countdown is over, stop the timer and redirect to the home page
+            if (seconds < 0) {
+                clearInterval(countdown);
+                window.location.href = "/";
+            }
+        }, 1000);
+    }
+
+    // Function to stop the timer
+    function stopTimer() {
+        clearInterval(countdown);
+    }
+
+    // Function to reset the timer
+    function resetTimer() {
+        clearInterval(countdown);
+        seconds = 120;
+        timer.innerHTML = seconds;
+    }
+</script>
+{% endblock %}

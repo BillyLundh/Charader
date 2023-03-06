@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+Info
+{% endblock %}
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<h1>Karaktär: {{ name }}</h1>
+<h1>Från Filmen: {{ rating }}</h1>
+<br>
+<div id="timer">120</div>
+<br>
+<button onclick="startTimer()">Start</button>
+<button onclick="stopTimer()">Stop</button>
+<button onclick="resetTimer()">Reset</button>
+{% endblock %}
