@@ -1,0 +1,30 @@
+# docker-compose.yml
+
+# Usage: docker-compose up -d
+
+services:
+  web:
+    platform: linux/amd64
+    depends_on:
+      - db  # Make sure the db service is working first
+    restart: on-failure:4  # If the container crashes, try restarting it 4 times
+    build:
+        dockerfile: Dockerfile  # Build the image from the file "Dockerfile"
+
+    image: docker.io/pedaltrain/charader:latest
+    ports:
+      - 80:80  # Which ports should we expose?
+    environment:
+      FLASK_DEBUG: true  # Tell Flask to run in debug mode
+      FLASK_RUN_HOST: 0.0.0.0
+      FLASK_RUN_PORT: 80
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+      - 3306:3306
+    volumes:
+      - "./.database:/var/lib/mysql"   # lokala mappen : mappen i containern
